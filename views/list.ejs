@@ -9,9 +9,9 @@
 <body>
     <h1><%= kindOfDay %> Todo List</h1>
     <ul>
-        <% newListItem.forEach( function(item) {  %>
+        <% newListItem.forEach( (item) => {  %>
             <li><%= item  %></li>
-        <% }); %>
+        <% }) %>
     </ul>
     <form action="/" method="POST">
         <input type="text" name="newItem">

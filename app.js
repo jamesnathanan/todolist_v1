@@ -11,7 +11,7 @@ app.set('view engine', 'ejs')
 
 app.get("/", (req, res) => {
     var today = new Date()
-    
+
     var options = {
         weekday: 'long',
         day: 'numeric',
@@ -26,8 +26,7 @@ app.get("/", (req, res) => {
 })
 
 app.post("/", (req, res) => {
-    console.log("Posting ...")
-    console.log(req.body.newItem)
+
     var item = req.body.newItem
     items.push(item)
 
