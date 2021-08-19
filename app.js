@@ -3,13 +3,15 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
+const items = []
+
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.set('view engine', 'ejs')
 
 app.get("/", (req, res) => {
     var today = new Date()
-
+    
     var options = {
         weekday: 'long',
         day: 'numeric',
@@ -19,16 +21,19 @@ app.get("/", (req, res) => {
     var day = today.toLocaleDateString("en-US", options)
 
     
-    res.render('list', { kindOfDay: day })
+    res.render('list', { kindOfDay: day, newListItem: items })
 
 })
 
 app.post("/", (req, res) => {
     console.log("Posting ...")
-    console.log(req.body.newItem);
-    res.send("<h1>You post a list</h1>")
+    console.log(req.body.newItem)
+    var item = req.body.newItem
+    items.push(item)
+
+    res.redirect("/")
 })
 
 app.listen(3000, () => {
-    console.log('Server start on port 3000');
+    console.log('Server start on port 3000')
 })
