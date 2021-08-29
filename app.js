@@ -1,38 +1,36 @@
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require("express");
+const bodyParser = require("body-parser");
 
-const app = express()
+const app = express();
 
-const items = []
+let items = ["Buy Food", "Cook Food", "Eat Food"];
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-app.set('view engine', 'ejs')
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    var today = new Date()
+  let today = new Date();
 
-    var options = {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long'
-    }
+  let options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  };
 
-    var day = today.toLocaleDateString("en-US", options)
+  let day = today.toLocaleDateString("en-US", options);
 
-    
-    res.render('list', { kindOfDay: day, newListItems: items })
-
-})
+  res.render("list", { kindOfDay: day, newListItems: items });
+});
 
 app.post("/", (req, res) => {
+  let item = req.body.newItem;
+  items.push(item);
 
-    var item = req.body.newItem
-    items.push(item)
+  res.redirect("/");
+});
 
-    res.redirect("/")
-})
-
-app.listen(3000, () => {
-    console.log('Server start on port 3000')
-})
+app.listen(3001, () => {
+  console.log("Server start on port 3001");
+});
